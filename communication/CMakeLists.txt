@@ -1,0 +1,1 @@
+/home/movidius/workspace/roboy_middleware/src/roboy_communication/roboy_communcation_cognition/CMakeLists.txt
