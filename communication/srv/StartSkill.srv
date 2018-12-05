@@ -1,1 +1,6 @@
-/home/movidius/workspace/roboy_middleware/src/roboy_communication/roboy_communcation_cognition/srv/StartSkill.srv
+string package
+string executable
+string node_name
+bool continuous
+---
+int8 response
