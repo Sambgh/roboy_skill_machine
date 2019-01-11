@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<!-- <script type="text/javascript" src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+<script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+ -->
+<script src="assets/ROSLIB.js"></script>
+
+<script type="text/javascript" src="/home/sam/Angular-Roboy-Skill-Machine/node_modules/shelljs/shell.js"></script>
+
+<script type="text/javascript" src="roslib.js"></script>
+
+<script type="text/javascript" type="text/javascript">
+  // Connecting to ROS
+  // -----------------
+
+  var ros = new ROSLIB.Ros({
+    url : 'ws://10.183.194.180:9090'
+  });
+
+  ros.on('connection', function() {
+    console.log('Connected to websocket server.');
+  });
+
+  ros.on('error', function(error) {
+    console.log('Error connecting to websocket server: ', error);
+  });
+
+  ros.on('close', function() {
+    console.log('Connection to websocket server closed.');
+  });
+
+
+ // Calling a service
+  // -----------------
+
+  var SkillMachineClient = new ROSLIB.Service({
+    ros : ros,
+    name : '/start_skill',
+    serviceType : 'roboy_skill_machine/StartSkill'
+  });
+
+  var request = new ROSLIB.ServiceRequest({
+    package : roboy_skill_machine,
+    executable : nod.py,
+    node_name : nod,
+    continuous : false
+  });
+
+  SkillMachineClient.callService(request, function(result) {
+    console.log('Result for service call on '
+      + SkillMachineClient.name
+      + ': '
+      + result.sum);
+  });
+
+</script>
+</head>
+
+
+<body>
+
+
+<div *ngIf="hero">
+  <h2>{{hero.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{hero.id}}</div>
+  <div>
+    <label>Skill:
+      <input [(ngModel)]="hero.name" placeholder="name"/>
+    </label>
+  </div>
+
+  <div>
+  	<button (click)="runSkill()">RUN</button>
+  </div>
+
+  <button (click)="goBack()">go back</button>
+  <button (click)="save()">save</button>
+</div>
+
+</body>
+
+</html>
